@@ -17,7 +17,7 @@
                 <div class="bg-white p-6 rounded-lg shadow border-l-4 border-blue-500">
                     <h3 class="font-bold text-lg mb-2">👥 Kelola Pengguna</h3>
                     <p class="text-sm text-gray-600 mb-4">Tambah dokter, perawat, atau reset password.</p>
-                    <a href="#" class="text-blue-500 hover:underline">Lihat Data &rarr;</a>
+                    <a href="{{ route('user.index') }}" class="text-blue-500 hover:underline">Lihat Data &rarr;</a>
                 </div>
 
                 <div class="bg-white p-6 rounded-lg shadow border-l-4 border-red-500">
@@ -29,7 +29,7 @@
                 <div class="bg-white p-6 rounded-lg shadow border-l-4 border-yellow-500">
                     <h3 class="font-bold text-lg mb-2">🏥 Kelola Poli</h3>
                     <p class="text-sm text-gray-600 mb-4">Tambah poli baru atau layanan.</p>
-                    <a href="#" class="text-yellow-500 hover:underline">Lihat Data &rarr;</a>
+                    <a href="{{ route('poli.index') }}" class="text-yellow-500 hover:underline">Lihat Data &rarr;</a>
                 </div>
             </div>
         </div>

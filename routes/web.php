@@ -9,6 +9,7 @@ use App\Http\Controllers\PerawatController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DokterController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -47,6 +48,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     })->name('admin.dashboard');
 
     Route::resource('/admin/obat', \App\Http\Controllers\Admin\ObatController::class);
+    Route::resource('/admin/poli', \App\Http\Controllers\Admin\PoliController::class);
+    Route::resource('/admin/user', \App\Http\Controllers\Admin\UserController::class);
 });
 
 // routes/web.php
