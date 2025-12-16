@@ -23,11 +23,23 @@ class PendaftaranController extends Controller
     // 2. Proses Simpan Data
     public function store(Request $request)
     {
+        $maxDate = now()->addDays(3)->format('Y-m-d');
         // Validasi input
         $request->validate([
-            'id_dokter' => 'required|exists:dokters,id',
-            'keluhan' => 'required|string',
-            'tgl_kunjungan' => 'required|date|after_or_equal:today',
+        'id_dokter' => 'required|exists:dokters,id',
+        'keluhan' => 'required|string',
+        
+        // UPDATE VALIDASI TANGGAL DI SINI:
+        'tgl_kunjungan' => [
+            'required',
+            'date',
+            'after_or_equal:today',      // Tidak boleh hari kemarin
+            'before_or_equal:' . $maxDate // Maksimal 3 hari ke depan
+        ],
+        ], [
+        // Custom Pesan Error (Opsional, biar bahasa manusia)
+        'tgl_kunjungan.after_or_equal' => 'Tanggal kunjungan tidak boleh lewat (minimal hari ini).',
+        'tgl_kunjungan.before_or_equal' => 'Pendaftaran maksimal hanya untuk 3 hari ke depan.',
         ]);
 
         // Cari ID Pasien berdasarkan User yang login

@@ -10,24 +10,30 @@
                 @endif
 
                 <table class="w-full border-collapse border">
-                    <tr class="bg-gray-100">
-                        <th class="border p-2">Nama Poli</th>
-                        <th class="border p-2">Deskripsi</th>
-                        <th class="border p-2">Aksi</th>
-                    </tr>
-                    @foreach($polis as $poli)
-                    <tr>
-                        <td class="border p-2 font-bold">{{ $poli->nama_poli }}</td>
-                        <td class="border p-2">{{ $poli->deskripsi }}</td>
-                        <td class="border p-2">
-                            <a href="{{ route('poli.edit', $poli->id) }}" class="text-yellow-600 hover:underline">Edit</a> | 
-                            <form action="{{ route('poli.destroy', $poli->id) }}" method="POST" class="inline" onsubmit="return confirm('Hapus poli ini?')">
-                                @csrf @method('DELETE')
-                                <button class="text-red-600 hover:underline">Hapus</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                    <thead class="bg-[#004E64] text-white">
+                        <tr>
+                            <th class="p-4 font-bold">Nama Poli</th>
+                            <th class="p-4 font-bold">Deskripsi</th>
+                            <th class="p-4 font-bold">Biaya Jasa</th> <th class="p-4 font-bold text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-gray-100">
+                        @foreach($polis as $poli)
+                        <tr class="hover:bg-[#FBF8F1] transition">
+                            <td class="p-4 font-bold text-gray-800">{{ $poli->nama_poli }}</td>
+                            <td class="p-4 text-gray-600">{{ Str::limit($poli->deskripsi, 50) }}</td>
+                            
+                            <td class="p-4 font-bold text-[#004E64]">
+                                Rp {{ number_format($poli->biaya_jasa) }}
+                            </td>
+                            
+                            <td class="p-4 text-center">
+                                <a href="{{ route('poli.edit', $poli->id) }}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                                </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>

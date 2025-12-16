@@ -36,8 +36,15 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="block font-medium text-sm text-gray-700">Rencana Tanggal Kunjungan</label>
-                            <input type="date" name="tgl_kunjungan" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1" required>
+                            <label for="tgl_kunjungan" class="block font-bold text-sm text-gray-800 mb-2">Rencana Tanggal Kunjungan</label>
+    
+                            <input type="date" 
+                                id="tgl_kunjungan" 
+                                name="tgl_kunjungan" 
+                                min="{{ date('Y-m-d') }}" 
+                                max="{{ date('Y-m-d', strtotime('+3 days')) }}" class="w-full rounded-md border border-gray-300 bg-gray-50 text-gray-900 shadow-sm p-3 focus:border-[#A4C96A] focus:ring-2 focus:ring-[#A4C96A] focus:bg-white transition duration-200" required>
+                            <p class="text-xs text-gray-500 mt-1 italic">*Pendaftaran hanya dibuka untuk H-0 sampai H-3.</p>
+                            <x-input-error :messages="$errors->get('tgl_kunjungan')" class="mt-2" />
                         </div>
 
                         <div class="mb-4">

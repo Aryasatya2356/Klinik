@@ -24,17 +24,24 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function updatePatient(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        // 1. Validasi Input
+        $validated = $request->validate([
+            'tgl_lahir' => ['required', 'date'],
+            'gender'    => ['required', 'in:L,P'],
+            'no_hp'     => ['required', 'string', 'max:15'],
+            'alamat'    => ['required', 'string', 'max:500'],
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        // 2. Update Data di tabel 'pasiens'
+        // updateOrCreate berguna: jika data belum ada dia buat, jika sudah ada dia update.
+        $request->user()->pasien()->updateOrCreate(
+            ['user_id' => $request->user()->id], // Kondisi pencarian
+            $validated                           // Data yang disimpan
+        );
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->route('profile.edit')->with('status', 'patient-updated');
     }
 
     /**

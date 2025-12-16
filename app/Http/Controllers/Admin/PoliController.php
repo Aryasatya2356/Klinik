@@ -21,9 +21,10 @@ class PoliController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_poli' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
+            'biaya_jasa' => 'required|numeric|min:0',
         ]);
 
         Poli::create($request->all());
@@ -35,15 +36,18 @@ class PoliController extends Controller
         return view('admin.poli.edit', compact('poli'));
     }
 
-    public function update(Request $request, Poli $poli)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nama_poli' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
+            'biaya_jasa' => 'required|numeric|min:0', // <--- Tambahkan validasi ini
         ]);
 
+        $poli = Poli::findOrFail($id);
         $poli->update($request->all());
-        return redirect()->route('poli.index')->with('success', 'Poli berhasil diupdate');
+
+        return redirect()->route('poli.index')->with('success', 'Data Poli berhasil diperbarui');
     }
 
     public function destroy(Poli $poli)

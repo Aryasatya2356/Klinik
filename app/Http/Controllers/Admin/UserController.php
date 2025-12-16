@@ -71,9 +71,18 @@ class UserController extends Controller
         return redirect()->route('user.index')->with('success', 'Pengguna berhasil ditambahkan');
     }
 
-    public function destroy(User $user)
-    {
+    public function destroy($id) {
+    try {
+        $user = \App\Models\User::findOrFail($id);
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'User berhasil dihapus');
+        return redirect()->back()->with('success', 'User berhasil dihapus.');
+        
+    } catch (\Illuminate\Database\QueryException $e) {
+        // Kode error 23000 biasanya constraint violation
+        if ($e->getCode() == "23000") {
+            return redirect()->back()->with('error', 'Gagal menghapus! User ini memiliki data riwayat medis/pendaftaran. Hapus data pendaftarannya terlebih dahulu jika ingin menghapus user ini.');
+        }
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data.');
     }
+}
 }

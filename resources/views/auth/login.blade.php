@@ -1,47 +1,51 @@
 <x-guest-layout>
-    <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
+
+    <div class="flex flex-col items-center justify-center mb-6">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo SINKLUS" class="w-24 h-auto drop-shadow-sm">
+    </div>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+        <div class="mb-5">
+            <label for="email" class="block font-bold text-sm text-gray-800 mb-2">Email</label>
+            <input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username"
+                class="w-full rounded-md border border-gray-300 bg-gray-200 text-gray-900 shadow-sm p-3
+                    focus:border-[#A4C96A] focus:ring-2 focus:ring-[#A4C96A] focus:bg-white transition duration-200"
+                placeholder="Masukkan email">
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
+        <div class="mb-5">
+            <label for="password" class="block font-bold text-sm text-gray-800 mb-2">Password</label>
+            <input id="password" type="password" name="password" required autocomplete="current-password"
+                class="w-full rounded-md border border-gray-300 bg-gray-200 text-gray-900 shadow-sm p-3
+                    focus:border-[#A4C96A] focus:ring-2 focus:ring-[#A4C96A] focus:bg-white transition duration-200"
+                placeholder="Masukkan password">
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
+        <div class="flex items-center justify-between mt-4 mb-8">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                <input id="remember_me" type="checkbox" 
+                    class="rounded border-gray-300 text-[#A4C96A] shadow-sm focus:ring-[#A4C96A]" 
+                    name="remember">
+                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
             </label>
-        </div>
 
-        <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 font-semibold" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
+        </div>
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+        <div class="flex items-center justify-end">
+            <button type="submit" 
+                    class="bg-[#A4C96A] hover:bg-[#8eb555] text-[#1a3d1f] font-bold py-2 px-8 rounded shadow-md transition duration-300 uppercase tracking-widest text-sm">
+                {{ __('LOG IN') }}
+            </button>
         </div>
     </form>
 </x-guest-layout>

@@ -17,7 +17,6 @@ class Pasien extends Model
         'alamat',
         'no_hp',
     ];
-    // ----------------------------
 
     public function user()
     {
