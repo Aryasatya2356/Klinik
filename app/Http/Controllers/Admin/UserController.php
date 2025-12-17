@@ -71,6 +71,41 @@ class UserController extends Controller
         return redirect()->route('user.index')->with('success', 'Pengguna berhasil ditambahkan');
     }
 
+    public function edit($id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+        return view('admin.user.edit', compact('user'));
+    }
+
+    // 2. FUNGSI MENYIMPAN PERUBAHAN (UPDATE)
+    public function update(Request $request, $id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$user->id, // Abaikan email milik sendiri saat cek unik
+            'role'  => 'required|in:admin,dokter,perawat,pasien',
+            'password' => 'nullable|min:8', // Password boleh kosong jika tidak ingin diganti
+        ]);
+
+        // Data yang akan diupdate
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+        ];
+
+        // Cek apakah password diisi? Jika ya, update passwordnya. Jika kosong, biarkan password lama.
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('user.index')->with('success', 'Data user berhasil diperbarui');
+    }
+
     public function destroy($id) {
     try {
         $user = \App\Models\User::findOrFail($id);

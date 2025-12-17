@@ -14,6 +14,8 @@ class Pendaftaran extends Model
     'tgl_kunjungan',
     'keluhan',
     'status',
+    'diagnosa',
+    'tindakan_dokter'
     // Diagnosa & Tindakan nanti diisi dokter, jadi boleh null
 ];
 
