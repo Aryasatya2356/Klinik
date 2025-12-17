@@ -28,21 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $role = $request->user()->role;
-
-        // Arahkan sesuai role
-        switch ($role) {
-        case 'admin':
-            return redirect()->intended(route('admin.dashboard'));
-        case 'dokter':
-            return redirect()->intended(route('dokter.dashboard'));
-        case 'perawat': // <--- Tambahkan ini
-            return redirect()->intended(route('perawat.dashboard'));
-        case 'pasien':
-            return redirect()->intended(route('dashboard'));
-        default:
-            return redirect()->intended(route('dashboard'));
-    }
+        return redirect()->intended(route('dashboard', absolute: false));
     }
 
     /**
