@@ -21,11 +21,11 @@
         @endphp
 
         <a href="{{ route($dashboardRoute) }}" 
-           class="flex items-center gap-3 px-5 py-4 rounded-xl transition-all duration-300 group font-['Open_Sans']
-           {{ request()->routeIs($dashboardRoute) 
+            class="flex items-center gap-3 px-5 py-4 rounded-xl transition-all duration-300 group font-['Open_Sans']
+            {{ request()->routeIs($dashboardRoute) 
                 ? 'bg-[#FBF8F1] text-[#1a3d1f] font-bold shadow-lg translate-x-2 border-l-4 border-[#004E64]' 
                 : 'text-white hover:bg-[#8eb555] hover:text-white hover:shadow-md hover:translate-x-1' 
-           }}">
+            }}">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
             <span class="text-sm tracking-wide">Dashboard</span>
         </a>
